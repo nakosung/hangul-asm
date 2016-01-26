@@ -76,7 +76,38 @@ let rl = readline.createInterface({
     input:process.stdin,
     terminal:false
 })
-rl.on('line',line => console.log(test(line.replace(/[^\uac00-\ud7af \.\?!\n]+/g,'#'))))
+
+function detest2(str) {
+    str = Array.prototype.map.call(str,x => String.fromCharCode(desafe(x.charCodeAt(0)))).join('')
+    return detest(str)
+}
+
+function desafe(x) {
+    if (x >= 65) {
+        return x - 65 + 0x3130
+    } else {
+        return x
+    }
+}
+
+function safe(x) {
+    if (x > 0x3130) {
+        return x - 0x3130 + 65
+    } else {
+        return x   
+    }
+}
+
+function test2(str) {
+    str = test(str)
+    return Array.prototype.map.call(str,x => String.fromCharCode(safe(x.charCodeAt(0)))).join('')
+}
+
+if (process.argv[2] == 'decode') {
+    rl.on('line',line => console.log(detest2(line)))    
+} else {
+    rl.on('line',line => console.log(test2(line.replace(/[^\uac00-\ud7af \.\?!\n]+/g,'#'))))
+}
 
 function T() {
     let text = `이번 강추위는 북극 주변의 찬 공기를 가둬놓던 제트기류가 지구 온난화로 인해 약화하면서 '북극 한기'가 남쪽으로 이동한 것이 근본 원인이다.
