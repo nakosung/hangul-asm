@@ -77,30 +77,30 @@ let rl = readline.createInterface({
     terminal:false
 })
 
+let H = _.uniq(_.flatten([cho,jung,_.flatten(jong.map(x => x.split('')))]))
+let A = _.range(0,H.length).map(x => String.fromCharCode((x < 26 ? 65 : 97) +x%26))
+let HtoA = {}
+let AtoH = {}
+_.each(H,(h,i) => HtoA[h] = A[i])
+_.each(A,(h,i) => AtoH[h] = H[i])
+
 function detest2(str) {
-    str = Array.prototype.map.call(str,x => String.fromCharCode(desafe(x.charCodeAt(0)))).join('')
+    str = Array.prototype.map.call(str,x => desafe(x)).join('')
+    console.log(str)
     return detest(str)
 }
 
 function desafe(x) {
-    if (x >= 65) {
-        return x - 65 + 0x3130
-    } else {
-        return x
-    }
+    return AtoH[x] || x
 }
 
 function safe(x) {
-    if (x > 0x3130) {
-        return x - 0x3130 + 65
-    } else {
-        return x   
-    }
+    return HtoA[x] || x
 }
 
 function test2(str) {
     str = test(str)
-    return Array.prototype.map.call(str,x => String.fromCharCode(safe(x.charCodeAt(0)))).join('')
+    return Array.prototype.map.call(str,x => safe(x)).join('')
 }
 
 if (process.argv[2] == 'decode') {
