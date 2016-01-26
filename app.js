@@ -42,17 +42,34 @@ function compose(memo,x) {
         }
         if (memo.buf) {
             if (memo.buf.length == 1) {
-                memo.buf.push(jung.indexOf(y))
+                let yy = jung.indexOf(y)
+                if (yy < 0) {
+                       
+                } else {
+                    memo.buf.push(yy)    
+                }
             } else if (memo.buf.length == 2) {
-                memo.lastCho = cho.indexOf(y)
-                memo.buf.push(jong.indexOf(y))
+                let yy = jong.indexOf(y)
+                if (yy < 0) {
+                    
+                } else {
+                    memo.lastCho = cho.indexOf(y)
+                    memo.buf.push(yy)   
+                }
             }
         } else {
             if (jung.indexOf(y) < 0) {
-                memo.buf = [ cho.indexOf(y) ]    
-            } else {
+                let yy = cho.indexOf(y)
+                if (yy < 0) {
+                    
+                } else {
+                    memo.buf = [ yy ]    
+                }
+            } else if (memo.lastCho && $$) {
                 memo.$ = memo.$.substr(0,memo.$.length-1) + $$
                 memo.buf = [ memo.lastCho, jung.indexOf(y) ]
+            } else {
+                return memo
             }
         }
         memo.buf.$$ = memo.buf.$
@@ -86,7 +103,6 @@ _.each(A,(h,i) => AtoH[h] = H[i])
 
 function detest2(str) {
     str = Array.prototype.map.call(str,x => desafe(x)).join('')
-    console.log(str)
     return detest(str)
 }
 
