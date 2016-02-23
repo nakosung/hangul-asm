@@ -11,3 +11,9 @@ $ node app decode
 LTCCZLSTJYLf STCAlF QYJlQlLnHCnDT
 안녕하세요 한글 테스트입니다
 ```
+
+## Natural representation for Hangul(Korean letter)
+* `않다` --> `ㅇㅏㄴㅎㄷㅏ`
+* `아니하다` --> `ㅇㅏㄴㅣㅎㅏㄷㅏ`
+* `이걸` --> `ㅇㅣㄱㅓㄹ`
+* `이것을` --> `ㅇㅣㄱㅓㅅㅇㅡㄹ`
