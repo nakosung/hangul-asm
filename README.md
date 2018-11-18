@@ -18,7 +18,6 @@ var encoded = lib.encode('한글 풀어쓰기')
 var decoded = lib.decode(encoded)
 
 lib.option({ "INT_PRINT": true });
-console.log('source text is valid?', lib.valid(txt));
 
 ```
 
@@ -31,5 +30,5 @@ console.log('source text is valid?', lib.valid(txt));
 
 ## Version history
 - v1.1.0
-    - add valid, option
+    - add integer option
     - refactoring code
