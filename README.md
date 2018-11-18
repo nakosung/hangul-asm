@@ -16,6 +16,10 @@ LTCCZLSTJYLf STCAlF QYJlQlLnHCnDT
 var lib = require('hangul-asm')
 var encoded = lib.encode('한글 풀어쓰기')
 var decoded = lib.decode(encoded)
+
+lib.option({ "INT_PRINT": true });
+console.log('source text is valid?', lib.valid(txt));
+
 ```
 
 ## Natural representation for Hangul(Korean letter)
@@ -23,3 +27,9 @@ var decoded = lib.decode(encoded)
 * `아니하다` --> `ㅇㅏㄴㅣㅎㅏㄷㅏ`
 * `이걸` --> `ㅇㅣㄱㅓㄹ`
 * `이것을` --> `ㅇㅣㄱㅓㅅㅇㅡㄹ`
+
+
+## Version history
+- v1.1.0
+    - add valid, option
+    - refactoring code
