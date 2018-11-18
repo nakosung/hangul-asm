@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-module.exports = { encode, decode };
+module.exports = { encode, decode, valid };
 
 const FIRST_KORAEN_CHAR = '\uac00';
 const LAST_KOREAN_CHAR = '\ud7af';
@@ -63,8 +63,10 @@ function merge_korean_char(chars) {
     return String.fromCharCode(code_korean_char);
 };
 ///////////////////////////////////////
-// @WARN : can't support all of ascii code set('{', '|', '}')
+
 function encode(lines) {
+    // @WARN : can't support all of ascii code set('{', '|', '}')
+    lines = lines.replace(/\{|\}|\|/g,'')
     let korean_flag = false;
     let encoded_list = _.map(lines, char => {
         // @INFO : we need to convert only korean chracter!
@@ -98,3 +100,7 @@ function decode(lines) {
         return _.map(p1.split(/\|| /), t => (t == '') ? ' ' : merge_korean_char(t)).join('');
     });
 };
+
+function valid(lines) {
+    return (lines.match(/\{|\}|\|/g) || []).length < 1;
+}
