@@ -66,7 +66,7 @@ function merge_korean_char(chars) {
 // @WARN : can't support all of ascii code set('{', '|', '}')
 function encode(lines) {
     let korean_flag = false;
-    return _.flatten(_.map(lines, char => {
+    let encoded_list = _.map(lines, char => {
         // @INFO : we need to convert only korean chracter!
         // @WARN : It doesn't vouch not perfact korean character (ex. 'ㄱ', 'ㅓ')
         if (LAST_KOREAN_CHAR >= char && char >= FIRST_KORAEN_CHAR) {
@@ -86,7 +86,10 @@ function encode(lines) {
             }
             return list;
         }
-    })).join('');
+    });
+    if(korean_flag) encoded_list.push('}');
+    
+    return _.flatten(encoded_list).join('');
 };
 
 function decode(lines) {
