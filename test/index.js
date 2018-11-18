@@ -9,6 +9,9 @@ let txt = `이번 강추위는 북극 주변의 찬 공기를 가둬놓던 제�
 
 console.log('source text is valid?', lib.valid(txt));
 
+// @INFO: "INT_PRINT" be defaulted at false.
+lib.option({ "INT_PRINT": true });
+
 console.log('source text\n', txt)
 let enc = lib.encode(txt)
 console.log('encode text\n', enc)

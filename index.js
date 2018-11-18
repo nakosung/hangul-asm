@@ -2,24 +2,34 @@
 
 const _ = require('lodash');
 
-module.exports = { encode, decode, valid };
+module.exports = { option, encode, decode, valid };
 
 const FIRST_KORAEN_CHAR = '\uac00';
 const LAST_KOREAN_CHAR = '\ud7af';
 const KOREAN_UNICODE_DEFAULT_INDEX = parseInt('0xac00', 16);
 ///////////////////////////////////////
+function option(config) {
+    if (config.INT_PRINT) {
+        DEFAULT_ASCII_INDEX = 128; // @INFO : unused values in ascii code
+        USING_INT_CODE = true;
+        init();
+    }
+}
+///////////////////////////////////////
 // 유니코드 한글은 0xAC00 으로부터 
 // 초성 19개, 중상21개, 종성28개로 이루어지고
 // 이들을 조합한 11,172개의 문자를 갖음
-let h2Ascii = {};
-let ascii2H = {};
-{
+let USING_INT_CODE = false;
+let DEFAULT_ASCII_INDEX = 48;
+let h2Ascii = {}, ascii2H = {};
+function init() {
+    h2Ascii = {}, ascii2H = {};
     const mapping = (s, d) => { h2Ascii[s] = d; ascii2H[d] = s; }
-    let DEFAULT_ASCII_INDEX = 48;
     for (let i = 0, l = 19; i < l; i++) mapping((parseInt('0x1100', 16) + i), (DEFAULT_ASCII_INDEX++))
     for (let i = 0, l = 21; i < l; i++) mapping((parseInt('0x1161', 16) + i), (DEFAULT_ASCII_INDEX++))
     for (let i = 0, l = 28; i < l; i++) mapping((parseInt('0x11A8', 16) + i), (DEFAULT_ASCII_INDEX++))
 }
+init();
 ///////////////////////////////////////
 const CONV_FUNC_TABLE = {
     conv_i_a2b: (c) => parseInt(((c.charCodeAt(0) - KOREAN_UNICODE_DEFAULT_INDEX) / 28) / 21),
@@ -66,7 +76,7 @@ function merge_korean_char(chars) {
 
 function encode(lines) {
     // @WARN : can't support all of ascii code set('{', '|', '}')
-    lines = lines.replace(/\{|\}|\|/g,'')
+    lines = lines.replace(/\{|\}|\|/g, '')
     let korean_flag = false;
     let encoded_list = _.map(lines, char => {
         // @INFO : we need to convert only korean chracter!
@@ -89,12 +99,16 @@ function encode(lines) {
             return list;
         }
     });
-    if(korean_flag) encoded_list.push('}');
-    
-    return _.flatten(encoded_list).join('');
+    if (korean_flag) encoded_list.push('}');
+
+    encoded_list = _.flatten(encoded_list);
+    if (USING_INT_CODE) return _.map(encoded_list, c => c.charCodeAt(0));
+    else return encoded_list.join('');
 };
 
 function decode(lines) {
+    if (USING_INT_CODE) lines = _.map(lines, c => String.fromCharCode(c)).join('');
+
     return lines.replace(/\{([^}]+)\}/g, (str, p1) => {
         p1 = p1.substr(1); // @INFO : remove garbage first character '|'
         return _.map(p1.split(/\|| /), t => (t == '') ? ' ' : merge_korean_char(t)).join('');
