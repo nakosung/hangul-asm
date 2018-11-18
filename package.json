@@ -1,6 +1,6 @@
 {
   "name": "hangul-asm",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/nakosung/hangul-asm",
   "dependencies": {
-    "lodash": "^4.0.0"
+    "lodash": "^4.17.11"
   }
 }
