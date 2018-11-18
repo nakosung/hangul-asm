@@ -7,10 +7,8 @@ let txt = `이번 강추위는 북극 주변의 찬 공기를 가둬놓던 제�
 온난화로 인해 '한파 울타리'가 느슨해져 오히려 혹독한 추위가 엄습하는 '온난화의 역설'인 셈이다. 
 대설의 경우 중국 북부지방에서 찬 대륙고기압이 확장하면서 상대적으로 따뜻한 서해상을 중심으로 눈구름이 만들어져 바람을 타고 육상으로 유입돼 발생했다.`
 
-console.log('source text is valid?', lib.valid(txt));
-
 // @INFO: "INT_PRINT" be defaulted at false.
-lib.option({ "INT_PRINT": true });
+// lib.option({ "INT_PRINT": true });
 
 console.log('source text\n', txt)
 let enc = lib.encode(txt)
