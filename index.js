@@ -9,7 +9,7 @@ const LAST_KOREAN_CHAR = '\ud7af';
 const KOREAN_UNICODE_DEFAULT_INDEX = parseInt('0xac00', 16);
 ///////////////////////////////////////
 function option(config) {
-    if (config.INT_PRINT) {
+    if (config.using_charcode) {
         USING_CHARCODE = true;
         init();
     }
