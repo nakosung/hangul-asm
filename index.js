@@ -10,7 +10,7 @@ const KOREAN_UNICODE_DEFAULT_INDEX = parseInt('0xac00', 16);
 ///////////////////////////////////////
 function option(config) {
     if (config.INT_PRINT) {
-        USING_INT_CODE = true;
+        USING_CHARCODE = true;
         init();
     }
 }
@@ -19,7 +19,7 @@ function option(config) {
 // 초성 19개, 중상21개, 종성28개로 이루어지고
 // 이들을 조합한 11,172개의 문자를 갖음
 const DEFAULT_IMT_ARR = [19, 21, 28];
-let USING_INT_CODE = false;
+let USING_CHARCODE = false;
 let DEFAULT_ASCII_INDEX = 128; // @WARN : '48' is not vouch to convert all of ascii code
 const REGEX = new RegExp(`([\\x${DEFAULT_ASCII_INDEX.toString(16)}-\\x${(DEFAULT_ASCII_INDEX + _.sum(DEFAULT_IMT_ARR)).toString(16)}]+)`, 'g');
 const T_INDEX = (DEFAULT_ASCII_INDEX + DEFAULT_IMT_ARR[0] + DEFAULT_IMT_ARR[1]);
@@ -83,12 +83,12 @@ function encode(lines) {
         if (LAST_KOREAN_CHAR >= char && char >= FIRST_KORAEN_CHAR) return split_korean_char(char);
         else return char;
     }));
-    if (USING_INT_CODE) return _.map(encoded_list, c => c.charCodeAt(0));
+    if (USING_CHARCODE) return _.map(encoded_list, c => c.charCodeAt(0));
     else return encoded_list.join('');
 };
 
 function decode(lines) {
-    if (USING_INT_CODE) lines = _.map(lines, c => String.fromCharCode(c)).join('');
+    if (USING_CHARCODE) lines = _.map(lines, c => String.fromCharCode(c)).join('');
     return lines.replace(REGEX, (str, p1) => {
         let list = [];
         for (let i = 0, l = p1.length; i < l;) {

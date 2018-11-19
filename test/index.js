@@ -12,13 +12,13 @@ let txt = `이번 강추위는 북극 주변의 찬 공기를 가둬놓던 제�
 
 console.log('source text\n', txt)
 let enc = lib.encode(txt)
-console.log('encode text\n', enc)
+console.log('encoded text\n', enc)
 let dec = lib.decode(enc)
-console.log('decode text\n', dec)
+console.log('decoded text\n', dec)
 
-console.log(`result
+console.log(`result info
     source len: ${txt.length}
-    encode len: ${enc.length}
-    decode len: ${dec.length}
+    encoded text len: ${enc.length}
+    decoded text len: ${dec.length}
     equality: ${txt == dec}
     loss: ${enc.length / txt.length * 100}`);
