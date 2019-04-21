@@ -10,7 +10,7 @@ let rl = readline.createInterface({
 })
 
 if (process.argv[2] == 'decode') {
-    rl.on('line',line => console.log(lib.decode(line)))    
+    rl.on('line',line => console.log(lib.decode(line)))
 } else {
     rl.on('line',line => console.log(lib.encode(line)))
 }

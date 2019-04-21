@@ -1,22 +1,22 @@
 {
-  "name": "hangul-asm",
-  "version": "1.0.0",
+  "name": "hangul-asm-tmp",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nakosung/hangul-asm.git"
+    "url": "https://github.com/keicoon/hangul-asm.git"
   },
-  "author": "",
+  "author": "keicoon",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nakosung/hangul-asm/issues"
+    "url": "https://github.com/keicoon/hangul-asm/issues"
   },
-  "homepage": "https://github.com/nakosung/hangul-asm",
+  "homepage": "https://github.com/keicoon/hangul-asm",
   "dependencies": {
-    "lodash": "^4.0.0"
+    "lodash": "^4.17.11"
   }
 }
